@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nick's Weather App</title>
+</head>
+<body>
+    <h1>Weather App</h1>
+    <form action="/" method="post">
+        <label for="city">Enter a city name:</label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+
+    {% if weather_data %}
+        <h2>Weather in {{ weather_data.city }}</h2>
+        <p>Temperature: {{ weather_data.temperature }}°F</p>
+        <p>Description: {{ weather_data.description }}</p>
+        <img src="{{ weather_data.icon_url }}" alt="{{ weather_data.description }}">
+        <p>Humidity: {{ weather_data.humidity }}%</p>
+        <p>Pressure: {{ weather_data.pressure }} hPa</p>
+        <p>Wind Speed: {{ weather_data.wind_speed }} mph</p>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>
