@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <h1>Weather App</h1>
+    <form action="/" method="post">
+      <label for="city">City:</label>
+      <input type="text" name="city" required>
+      <button type="submit">Get Weather</button>
+    </form>
+    {% if error %}
+      <p>{{ error }}</p>
+    {% endif %}
+    {% if weather_data %}
+      <h2>{{ weather_data.name }} ({{ weather_data.sys.country }})</h2>
+      <p>Temperature: {{ weather_data.main.temp }}°F</p>
+      <p>Feels Like: {{ weather_data.main.feels_like }}°F</p>
+      <p>Min Temperature: {{ weather_data.main.temp_min }}°F</p>
+      <p>Max Temperature: {{ weather_data.main.temp_max }}°F</p>
+      <p>Pressure: {{ weather_data.main.pressure }} hPa</p>
+      <p>Humidity: {{ weather_data.main.humidity }}%</p>
+      <p>Weather: {{ weather_data.weather[0].description }}</p>
+      <p>Wind Speed: {{ weather_data.wind.speed }} m/s</p>
+      <p>Wind Direction: {{ weather_data.wind.deg }}°</p>
+      {% if weather_data.get('rain') %}
+        <p>Rain (last 1 hour): {{ weather_data.rain['1h'] }} mm</p>
+      {% endif %}
+      {% if weather_data.get('snow') %}
+        <p>Snow (last 1 hour): {{ weather_data.snow['1h'] }} mm</p>
+      {% endif %}
+      <p>Cloudiness: {{ weather_data.clouds.all }}%</p>
+      <p>Sunrise: {{ weather_data.sys.sunrise | int | timestamp_to_datetime }}</p>
+      <p>Sunset: {{ weather_data.sys.sunset | int | timestamp_to_datetime }}</p>
+    {% endif %}
+  </body>
+</html>
